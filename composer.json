@@ -1,0 +1,14 @@
+{
+    "name": "howard/image-server",
+    "type": "project",
+    "require": {
+        "j4mie/idiorm": "^1.5",
+        "wixel/gump": "^1.5"
+    },
+    "authors": [
+        {
+            "name": "Howard Miller",
+            "email": "howardsmiller@gmail.com"
+        }
+    ]
+}
