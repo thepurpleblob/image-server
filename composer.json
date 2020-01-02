@@ -10,5 +10,10 @@
             "name": "Howard Miller",
             "email": "howardsmiller@gmail.com"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+          "collection\\":"src/"
+        }
+    }
 }

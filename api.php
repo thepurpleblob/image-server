@@ -7,12 +7,26 @@ require(dirname(__FILE__) . '/config.php');
 ORM::configure('mysql:host=' . $CFG->dbhost . ';dbname=' . $CFG->dbname);
 ORM::configure('username', $CFG->dbuser);
 ORM::configure('password', $CFG->dbpass);
+ORM::configure('return_result_sets', true);
+
+// Headers allow cross-origin calls
+header("Access-Control-Allow-Origin: *");
+header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+
+//var_dump($_POST); die;
 
 // GUMP setup
 $gump = new GUMP();
 $_POST = $gump->sanitize($_POST);
     
-header("Access-Control-Allow-Origin: *");
-header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+$gump->filter_rules([
+    'action' => 'trim|sanitize_string',
+]);
+$data = $gump->run($_POST);
+$data = (object)$data;
+$action = $data->action;
 
-echo "this is the response\n";
+// Instantiate class to execute requested action
+$classname = "\\collection\\" . $action;
+$process = new $classname($data);
+echo $process->get();
