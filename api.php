@@ -1,5 +1,9 @@
 <?php
 
+// Headers allow cross-origin calls
+header("Access-Control-Allow-Origin: *");
+header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+
 require(dirname(__FILE__) . '/vendor/autoload.php');
 require(dirname(__FILE__) . '/config.php');
 
@@ -9,9 +13,6 @@ ORM::configure('username', $CFG->dbuser);
 ORM::configure('password', $CFG->dbpass);
 ORM::configure('return_result_sets', true);
 
-// Headers allow cross-origin calls
-header("Access-Control-Allow-Origin: *");
-header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
 //var_dump($_POST); die;
 
