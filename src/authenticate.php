@@ -4,6 +4,21 @@ namespace collection;
 
 class authenticate extends action {
 
+    /**
+     * Set new token for this $user
+     * Delete any existing ones (as 'new' login)
+     */
+    protected function token($user) {
+        \ORM::for_table('token')->where('user', $user->id)->delete_many();
+        $token = \ORM::for_table('token')->create();
+        $token->user = $user->id;
+        $token->token = sha1($user->email . time() . rand(0, 999999));
+        $token->timemodified = time();
+        $token->save();
+
+        return $token->token;
+    }
+
     public function get() {
         //var_dump($this->data); die;
         $username = $this->data->username;
@@ -22,6 +37,7 @@ class authenticate extends action {
         }
       
         $userfields = $user->as_array();
+        $userfields['token'] = $this->token($user);
         unset($userfields['password']);
         return json_encode($userfields);
     }
