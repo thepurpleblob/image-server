@@ -1,10 +1,10 @@
 <?php
 
-namespace collection;
+namespace collection\action;
 
 class findimages extends action {
 
-    public function get() {
+    public function post() {
         global $CFG;
 
         $search = $this->data->searchtext;

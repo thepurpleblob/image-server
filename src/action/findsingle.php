@@ -1,10 +1,10 @@
 <?php
 
-namespace collection;
+namespace collection\action;
 
 class findsingle extends action {
 
-    public function get() {
+    public function post() {
         global $CFG;
 
         $objectnumber = $this->data->objectnumber;

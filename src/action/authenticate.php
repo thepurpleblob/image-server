@@ -1,6 +1,6 @@
 <?php
 
-namespace collection;
+namespace collection\action;
 
 class authenticate extends action {
 
@@ -19,7 +19,7 @@ class authenticate extends action {
         return $token->token;
     }
 
-    public function get() {
+    public function post() {
         //var_dump($this->data); die;
         $username = $this->data->username;
         $password = $this->data->password;

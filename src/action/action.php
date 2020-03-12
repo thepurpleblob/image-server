@@ -1,6 +1,6 @@
 <?php
 
-namespace collection;
+namespace collection\action;
 
 class action {
 

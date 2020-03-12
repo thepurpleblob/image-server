@@ -18,16 +18,19 @@ ORM::configure('return_result_sets', true);
 
 // GUMP setup
 $gump = new GUMP();
-$_POST = $gump->sanitize($_POST);
-    
-$gump->filter_rules([
-    'action' => 'trim|sanitize_string',
-]);
-$data = $gump->run($_POST);
-$data = (object)$data;
-$action = $data->action;
 
-// Instantiate class to execute requested action
-$classname = "\\collection\\" . $action;
-$process = new $classname($data);
-echo $process->get();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $_POST = $gump->sanitize($_POST);
+    
+    $gump->filter_rules([
+        'action' => 'trim|sanitize_string',
+    ]);
+    $data = $gump->run($_POST);
+    $data = (object)$data;
+    $action = $data->action;
+
+    // Instantiate class to execute requested action
+    $classname = "\\collection\\action\\" . $action;
+    $process = new $classname($data);
+    echo $process->post();
+}
